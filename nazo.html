@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<title>テスト</title>
+</head>
+
+<body>
+    <div class="wrap">
+        <div>
+            <p>TVF探偵事務所のコードネーム：Zipperが残した手掛かり。（手帳に書かれたメモ）
+                「エアセル社の長年にわたる裏取引の現場である会員制クラブ「Blatant lie（真っ赤な）嘘」。その場所を関係者の証言によって特定したZipper探偵だったが、ある日、忽然と姿を消し、証拠の書かれた手帳のメモも街に散りじりになってしまった。それにはエアセル社から依頼されたマフィア、スカロップファミリーが関係していると思われる。
+                もし場所がわかったプレイヤーがいたら、下町エリア：TBF探偵事務所に来てほしい。
+                手帳の切れ端は全部で6個。厄介なのは、証言者の中にエアセル社の関係者がいて、彼らが嘘をついていること……」
+            </p>
+        </div>
+        <div>
+            <p>この謎が解けたら、謎の答えを下に記して教えてくれ・・・</p>
+            <form></form>
+        </div>
+    </div>
+
+    <div class="code">
+        <div class="center">
+            <form name="frmAngoukaJump" action="javascript:DecodeJump();">
+                <input name="txtPasswordForDecode" type="text" size="30"　maxlength="15" id="inp_val" placeholder="場所の名前"/>
+                <input name="btnMD5" onclick="DecodeJump();" type="button" readonly="readonly" value="入力" />
+            </form>
+        </div>
+        
+        <script>// <![CDATA[
+        function DecodeJump(){
+          var cURL = new Array();
+          //ここに暗号化URLをコピーして下さい▽▽▽▽▽▽▽▽▽
+          cURL[0] = "12465,12447,12461,12443,12475,12499,12534,12484,12466,12418,12475,12420,12477,12423,12470,12420,12466,12426,12535,12428,12449,12445,12465,12446,12475,12485,12464,12420,12519,12423,12472,12433,12470,12484,12461,12445,12462,12424,12471,12440,12462,12430,12459,12428,12458";
+          cURL[1] = "12305,12543,12301,12539,12315,12467,12374,12452,12306,12514,12315,12516,12317,12519,12310,12516,12306,12522,12375,12524,12289,12541,12305,12542,12315,12453,12304,12516,12359,12519,12312,12529,12310,12452,12301,12541,12302,12520,12311,12536,12302,12526,12299,12524,12298";
+          //ここに暗号化URLをコピーして下さい△△△△△△△△△
+          var KeyWord;
+          KeyWord = document.frmAngoukaJump.txtPasswordForDecode.value;
+        
+          re = new RegExp("https://kibounooka\.github+\.io/nazo/tvfanswergb$", "i");//URLが左の形式に一致しているかを判定する
+          //ここの記述はなるべく長いほうが誤作動が起きにくいです。URLの正規表現については調べてください。
+          var str = new Array();
+          for ( var k = 0; k <= cURL.length - 1; k++ ){
+            str[k] = De(cURL[k],KeyWord);
+          }
+        
+            if (str[0].match(re)) {
+              document.location.href = str[0] ;//cURL[0]に設定された文字列が入力されたらcURL[0]に設定されたURLに遷移する
+            } else if (str[1].match(re)) {
+              document.location.href = str[1] ;//cURL[1]に設定された文字列が入力されたらcURL[1]に設定されたURLに遷移する
+            }else{
+              alert("どうやらその場所ではないようだ");//cURLに設定されていない単語が入力された。
+            }
+        }
+        
+        function MakeKey(Key,Nmb){
+          var j;
+          KeyBuff = new Array(Nmb);
+          for(j=0;j < Nmb;j++){
+            KeyBuff[j] = Key.substring(j % Key.length,j % Key.length + 1).charCodeAt(0);
+          }
+        }
+        
+        function De(str,mKey){
+          var StrBuff = str.split(",");
+          var LBuff = "";
+          UB = StrBuff.length; MakeKey(mKey,UB);
+          for(i = 0; i < UB;i++ ){
+            StrBuff[i] = unescape(StrBuff[i]) ^ KeyBuff[i];
+            LBuff = LBuff + String.fromCharCode(StrBuff[i]); 
+          }
+          return LBuff;
+        }
+        // ]]></script>
+        </div>
+ 
+</body>
+</html>
