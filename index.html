@@ -40,7 +40,7 @@
           var KeyWord;
           KeyWord = document.frmAngoukaJump.txtPasswordForDecode.value;
         
-          re = new RegExp("https://kibounooka\.github\.io/nazo/tvfanswergb$", "i");//URLが左の形式に一致しているかを判定する
+          re = new RegExp("https://kibounooka\.github+\.io/nazo/tvfanswergb$", "i");//URLが左の形式に一致しているかを判定する
           //ここの記述はなるべく長いほうが誤作動が起きにくいです。URLの正規表現については調べてください。
           var str = new Array();
           for ( var k = 0; k <= cURL.length - 1; k++ ){
